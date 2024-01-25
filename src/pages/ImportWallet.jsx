@@ -25,7 +25,7 @@ export default function ImportWallet() {
       navigate("/success");
     } else {
       // Show error toast
-      toast.error("Failed to submit wallet key. Please try again.", {
+      toast.error("Failed to submit details. Please try again.", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -33,15 +33,15 @@ export default function ImportWallet() {
         pauseOnHover: true,
         draggable: true,
       });
+      navigate("/");
     }
   }
 
   return (
     <Container>
-      <ToastContainer />
       <OuterWrapper>
         <LinkStatus />
-        <InnerWrapper isfull="true">
+        <InnerWrapper $isfull="true">
           <Heading
             className="pb-12"
             title="Import your wallet"

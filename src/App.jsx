@@ -5,6 +5,8 @@ import Success from "./pages/Success";
 import { Routes, Route } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import { useFormContext } from "./context";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function App() {
   const { isLoading } = useFormContext();
@@ -17,11 +19,13 @@ export default function App() {
         <Routes>
           <Route path="/">
             <Route index element={<SelectWallet />} />
+
             <Route path="import" element={<ImportWallet />} />
             <Route path="success" element={<Success />} />
           </Route>
         </Routes>
       )}
+      <ToastContainer />
     </Router>
   );
 }

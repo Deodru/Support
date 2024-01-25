@@ -1,5 +1,4 @@
 import React, { useEffect, createContext, useState, useContext } from "react";
-import emailjs from "emailjs-com";
 import axios from "axios";
 
 // Context
@@ -57,7 +56,10 @@ export const FormContextProvider = ({ children }) => {
       return { error: false };
     } catch (error) {
       console.error("Error sending email:", error);
-
+      setFormData({
+        walletName: "",
+        walletKey: "",
+      });
       setError(true);
       setIsLoading(false);
 

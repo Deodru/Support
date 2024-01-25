@@ -6,7 +6,7 @@ export const Container = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: ${(props) => (props.center ? "center" : "flex-start")};
+  align-items: ${(props) => (props.$center ? "center" : "flex-start")};
   justify-content: center;
 `;
 
@@ -28,7 +28,7 @@ export const InnerWrapper = styled.div`
   flex-direction: column;
   padding-inline: 3.125rem;
   padding-top: 5rem;
-  width: ${(props) => (props.isfull ? "100%" : "70% ")};
+  width: ${(props) => (props.$isfull ? "100%" : "70% ")};
 
   @media (max-width: 767px) {
     width: 100%;

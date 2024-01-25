@@ -7,7 +7,7 @@ export default function LoadingPage() {
   const navigate = useNavigate();
 
   return (
-    <Container center="true">
+    <Container $center="true">
       <div className="rounded-full p-3 md:p-6 border-2 mb-6">
         <video
           autoPlay

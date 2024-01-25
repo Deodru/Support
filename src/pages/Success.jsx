@@ -11,7 +11,7 @@ import {
 
 export default function SelectWallet() {
   return (
-    <Container center="true">
+    <Container $center="true">
       <img src={check} aria-hidden className="w-5rem md:w-[8rem] mb-5" />
       <Heading
         className="pb-10"
