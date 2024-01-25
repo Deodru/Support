@@ -28,7 +28,7 @@ export const InnerWrapper = styled.div`
   flex-direction: column;
   padding-inline: 3.125rem;
   padding-top: 5rem;
-  width: ${(props) => (props.isFull ? "100%" : "70% ")};
+  width: ${(props) => (props.isfull ? "100%" : "70% ")};
 
   @media (max-width: 767px) {
     width: 100%;

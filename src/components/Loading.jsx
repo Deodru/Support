@@ -1,18 +1,10 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container } from "../components/StyledElements";
+import { Container } from "./StyledElements";
 import gif from "../assets/padlock-animation.mp4";
 
 export default function LoadingPage() {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      navigate("/select");
-    }, 10000);
-
-    return () => clearTimeout(timeoutId);
-  }, [navigate]);
 
   return (
     <Container center="true">
